@@ -11,6 +11,7 @@ RUN apt-get install -y \
         cmake           \
         pkg-config      \
         python          \
+        gettext         \
         git
 RUN apt-get install -y \
         libssl-dev          \
@@ -20,8 +21,7 @@ RUN apt-get install -y \
         libavutil-dev       \
         libavformat-dev     \
         libavresample-dev   \
-        libswscale-dev      \
-        gettext
+        libswscale-dev
 RUN apt-get install -y \
         wget    \
         bzip2
@@ -36,6 +36,20 @@ RUN cd "${SOURCE_PATH}" \
     && make -j "${CPU_CORES}" \
     && make install
 RUN rm -rf "${SOURCE_PATH}"
+
+RUN apt-get remove -y \
+        build-essential \
+        cmake           \
+        pkg-config      \
+        python          \
+        gettext         \
+        git             \
+        \
+        wget            \
+        bzip2           \
+    && apt-get autoremove -y \
+    && apt-get clean -y \
+    && rm -rf "/var/lib/apt/lists/*"
 
 VOLUME "${HOME_PATH}"
 
