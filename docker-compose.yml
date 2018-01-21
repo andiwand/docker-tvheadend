@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  gatekeeper.node:
+    build: .
+    image: andiwand/tvheadend
+    container_name: tvheadend
+    restart: always
+    ports:
+      - "9981:9981"
+      - "9982:9982"
+    volumes:
+      - ./:/config
+
